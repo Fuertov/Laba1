@@ -1,0 +1,104 @@
+МАССИВ (M / string)
+
+  MPUSH    <name> <value>          Добавить в конец             -> <value>
+  MINSERT <name> <idx> <value>    Добавить по индексу          -> <value>
+  MGET     <name> <idx>            Получить по индексу          -> <value>
+  MREPLACE     <name> <idx> <value>    Заменить по индексу          -> <value>
+  MDEL     <name> <idx>            Удалить по индексу           -> OK
+  MSIZE     <name>                  Длина                        -> <число>
+
+Примеры:
+  ./dbms --file file.data --query 'MPUSH myarray apple'          -> apple
+  ./dbms --file file.data --query 'MINSERT myarray 0 banana'    -> banana
+  ./dbms --file file.data --query 'MGET myarray 1'               -> apple
+  ./dbms --file file.data --query 'MREPLACE myarray 0 cherry'        -> cherry
+  ./dbms --file file.data --query 'MDEL myarray 0'               -> OK
+  ./dbms --file file.data --query 'MSIZE myarray'                 -> 1
+
+
+
+  ОДНОСВЯЗНЫЙ СПИСОК (F / string)
+
+  FPUSH    <name> <value>          Добавить в голову            -> <value>
+  FPUSHEND   <name> <value>          Добавить в хвост             -> <value>
+  FDEL     <name>                  Удалить с головы             -> OK
+  FDELEND <name>                  Удалить с хвоста             -> OK
+  FREMVAL  <name> <value>          Удалить по значению          -> OK
+  FSEARCH    <name> <value>          Поиск (печатает позицию)     -> OK
+  FSHOW   <name>                  Вывести весь список          -> OK (F[...])
+
+Примеры:
+  ./dbms --file file.data --query 'FPUSH mylist one'             -> one
+  ./dbms --file file.data --query 'FPUSHEND mylist four'           -> four
+  ./dbms --file file.data --query 'FDEL mylist'                  -> OK
+  ./dbms --file file.data --query 'FDELEND mylist'              -> OK
+  ./dbms --file file.data --query 'FREMVAL mylist one'           -> OK
+  ./dbms --file file.data --query 'FSEARCH mylist two'             -> OK
+  ./dbms --file file.data --query 'FSHOW mylist'                -> OK
+
+
+  ДВУСВЯЗНЫЙ СПИСОК (L / string)
+
+  LPUSH    <name> <value>          Добавить в голову            -> <value>
+  LPUSHEND   <name> <value>          Добавить в хвост             -> <value>
+  LDEL     <name>                  Удалить с головы             -> OK
+  LDELEND <name>                  Удалить с хвоста             -> OK
+  LREMVAL  <name> <value>          Удалить по значению          -> OK
+  LSEARCH    <name> <value>          Поиск (печатает позицию)     -> OK
+  LSHOW   <name>                  Вывести прямо                -> OK (L[...])
+  LSHOWREV  <name>                  Вывести обратно              -> OK (Lr[...])
+
+Примеры:
+  ./dbms --file file.data --query 'LPUSH mydlist b'              -> b
+  ./dbms --file file.data --query 'LPUSHEND mydlist e'             -> e
+  ./dbms --file file.data --query 'LDEL mydlist'                 -> OK
+  ./dbms --file file.data --query 'LDELEND mydlist'             -> OK
+  ./dbms --file file.data --query 'LREMVAL mydlist b'            -> OK
+  ./dbms --file file.data --query 'LSEARCH mydlist b'              -> OK
+  ./dbms --file file.data --query 'LSHOW mydlist'               -> OK
+  ./dbms --file file.data --query 'LSHOWREV mydlist'              -> OK
+
+  СТЕК (S / string)
+
+  SPUSH    <name> <value>          Добавить на вершину          -> <value>
+  SPOP     <name>                  Вернуть и удалить верхний    -> <value> / ОШИБКА
+  SPEEK     <name>                  Прочитать вершину            -> <value> / ОШИБКА
+  SSHOW   <name>                  Вывести весь стек            -> OK (S[...])
+
+Примеры:
+  ./dbms --file file.data --query 'SPUSH mystack item'           -> item
+  ./dbms --file file.data --query 'SPEEK mystack'                 -> item
+  ./dbms --file file.data --query 'SPOP mystack'                 -> item
+  ./dbms --file file.data --query 'SSHOW mystack'               -> OK
+
+  ОЧЕРЕДЬ (Q / string)
+  QPUSH    <name> <value>          Добавить в конец             -> <value>
+  QPOP     <name>                  Вернуть и удалить голову     -> <value> / ОШИБКА
+  QPEEK     <name>                  Прочитать голову             -> <value> / ОШИБКА
+  QSHOW   <name>                  Вывести всю очередь          -> OK (Q[...])
+
+Примеры:
+  ./dbms --file file.data --query 'QPUSH myqueue last'           -> last
+  ./dbms --file file.data --query 'QPEEK myqueue'                 -> last
+  ./dbms --file file.data --query 'QPOP myqueue'                 -> last
+  ./dbms --file file.data --query 'QSHOW myqueue'               -> OK
+
+  ДЕРЕВО — Complete Binary Tree (T / int)
+  
+  TINSERT     <name> <int>         Вставить элемент             -> <int>
+  TSEARCH       <name> <int>         Поиск (печатает глубину)     -> OK
+  TSHOW      <name>               In-order обход               -> OK (T[...])
+  TSHOWTREE  <name>               Визуальный вывод             -> OK
+  TCHECKCOMPLETE <name>               Проверка на Complete         -> TRUE / FALSE
+  TCHECKFULL     <name>               Проверка на Full             -> TRUE / FALSE
+
+Примеры:
+  ./dbms --file file.data --query 'TINSERT mytree 10'            -> 10
+  ./dbms --file file.data --query 'TINSERT mytree 20'            -> 20
+  ./dbms --file file.data --query 'TINSERT mytree 30'            -> 30
+  ./dbms --file file.data --query 'TSEARCH mytree 20'              -> OK
+  ./dbms --file file.data --query 'TSHOW mytree'                -> OK
+  ./dbms --file file.data --query 'TSHOWTREE mytree'            -> OK
+  ./dbms --file file.data --query 'TCHECKCOMPLETE mytree'           -> TRUE
+  ./dbms --file file.data --query 'TCHECKFULL mytree'               -> TRUE
+
